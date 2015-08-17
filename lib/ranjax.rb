@@ -5,9 +5,13 @@ class Ranjax
   @words = []
   @head_idxs = []
 
-  def initialize()
+  def initialize(path: nil)
     @words = []
     @head_idxs = []
+
+    unless path.nil?
+      load(path)
+    end
   end
 
   def import_text(text)
@@ -55,6 +59,27 @@ class Ranjax
     end
 
     dst_text
+  end
+
+  def save(path)
+    if path.empty?
+      raise ArgumentError.new('Bad Path')
+    end
+
+    data = Marshal.dump({
+      :words=>@words,
+      :head_idxs=>@head_idxs
+    })
+    File.write(path, data)
+  end
+
+  private
+
+  def load(path)
+    r = File.read(path)
+    data = Marshal.load(r)
+    @words = data[:words]
+    @head_idxs = data[:head_idxs]
   end
 
 end
