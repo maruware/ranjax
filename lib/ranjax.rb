@@ -44,20 +44,16 @@ class Ranjax
 
       unit = candidate_units.sample
 
-      unless max.nil?
-        if dst_text.size + unit[2].size > max
-          break
-        end
-      end
+      break if max != nil && dst_text.size + unit[2].size > max
+
+      break if unit[2] == END_OF_TEXT
 
       dst_text += unit[2]
 
-      break if unit[2] == END_OF_TEXT
       t1 = unit[1]
       t2 = unit[2]
     end
 
-    dst_text.gsub!(/#{END_OF_TEXT}$/,'')
     dst_text
   end
 
