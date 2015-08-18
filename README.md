@@ -25,3 +25,11 @@ text = ranjax.generate_text()
 ## Requirements
 
 * MeCab 0.996
+
+## Install
+
+In Gemfile
+
+```ruby
+gem 'ranjax', '~> 0.1.0'
+```
