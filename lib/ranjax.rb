@@ -2,6 +2,7 @@ require 'natto'
 
 class Ranjax
   END_OF_TEXT = '__E__'
+  END_MARKERS = ['。', '！', '!']
   @words = []
   @head_idxs = []
 
@@ -19,7 +20,7 @@ class Ranjax
 
     words = []
     nm.parse(text) do |n|
-      words << n.surface
+      words << n.surface if n.surface.size > 0
     end
     words << END_OF_TEXT
 
@@ -27,7 +28,7 @@ class Ranjax
     @words += words
   end
 
-  def generate_text(max: nil)
+  def generate_text(max: nil, complete_if_possible:true)
     units = []
     @words.each_cons(3) do |unit|
       units << unit
@@ -48,7 +49,16 @@ class Ranjax
 
       unit = candidate_units.sample
 
-      break if max != nil && dst_text.size + unit[2].size > max
+      if max != nil && dst_text.size + unit[2].size > max
+        if complete_if_possible
+          g = END_MARKERS.join('')
+          idx = dst_text.rindex(/[#{g}]/)
+          if idx
+            dst_text.slice!(idx+1, dst_text.size-1)
+          end
+        end
+        break
+      end
 
       break if unit[2] == END_OF_TEXT
 

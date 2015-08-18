@@ -34,8 +34,8 @@ EOS
 
     ranjax = Ranjax.new()
     ranjax.import_text(text)
-    text = ranjax.generate_text(max: 40)
-    assert text.size <= 40
+    text = ranjax.generate_text(max: 140)
+    assert text.size <= 140
   end
 
   def test_multi_import_text
