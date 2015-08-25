@@ -81,4 +81,15 @@ EOS
 
   end
 
+  def test_import_text_file
+    file_path = File.dirname(__FILE__) + '/data/texts.txt'
+
+    ranjax = Ranjax.new()
+    ranjax.import_text_file(file_path)
+
+    text = ranjax.generate_text()
+    assert_instance_of String, text
+  p text
+  end
+
 end

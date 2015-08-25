@@ -28,6 +28,14 @@ class Ranjax
     @words += words
   end
 
+  def import_text_file(file_path)
+    open(file_path) do |file|
+      file.each do |line|
+        import_text(line)
+      end
+    end
+  end
+
   def generate_text(max: nil, complete_if_possible:true)
     units = []
     @words.each_cons(3) do |unit|
