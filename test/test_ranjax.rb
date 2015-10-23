@@ -4,7 +4,7 @@ require 'minitest/autorun'
 
 require 'ranjax'
 
-class RanjaxTest < MiniTest::Unit::TestCase
+class RanjaxTest < MiniTest::Test
   def setup
     @texts = []
     @texts << <<EOS
